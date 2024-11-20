@@ -3200,22 +3200,6 @@ function Library:CreateWindow(...)
                 BorderColor3 = 'OutlineColor';
             });
 
-            local Shadow = Library:Create('ImageLabel', {
-                Name = "Shadow",
-                BackgroundTransparency = 1,
-                Position = UDim2.new(0, -15, 0, -15),  -- Offset to make shadow appear around all edges
-                Size = UDim2.new(1, 30, 1, 30),        -- Increased size to account for shadow spread
-                Image = "http://www.roblox.com/asset/?id=6105530152",
-                ImageColor3 = Library.MainColor,        -- Match your UI theme
-                ImageTransparency = 0.5,                -- Adjust transparency of shadow
-                ZIndex = 0,                             -- Place behind main UI
-                Parent = Outer
-            })
-
-            Library:AddToRegistry(Shadow, {
-                ImageColor3 = 'MainColor'
-            })
-            
             local BoxInner = Library:Create('Frame', {
                 BackgroundColor3 = Library.BackgroundColor;
                 BorderColor3 = Color3.new(0, 0, 0);
@@ -3237,11 +3221,26 @@ function Library:CreateWindow(...)
                 ZIndex = 5;
                 Parent = BoxInner;
             });
-
+            
+            local AccentShadow = Library:Create('ImageLabel', {
+                Image = "http://www.roblox.com/asset/?id=6105530152",
+                BackgroundTransparency = 1,
+                ImageColor3 = Library.AccentColor,
+                ImageTransparency = 0.5,
+                Size = UDim2.new(1, 0, 1, 4),
+                Position = UDim2.new(0, 0, 0, 2),
+                ZIndex = 4,
+                Parent = Highlight
+            })
+            
             Library:AddToRegistry(Highlight, {
                 BackgroundColor3 = 'AccentColor';
             });
-
+            
+            Library:AddToRegistry(AccentShadow, {
+                ImageColor3 = 'AccentColor'
+            });
+            
             local GroupboxLabel = Library:CreateLabel({
                 Size = UDim2.new(1, 0, 0, 18);
                 Position = UDim2.new(0, 4, 0, 2);
