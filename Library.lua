@@ -3031,10 +3031,11 @@ function Library:CreateWindow(...)
         ZIndex = 1;
         Parent = MainSectionInner;
     });
-
+    
     local TabListLayout = Library:Create('UIListLayout', {
         Padding = UDim.new(0, Config.TabPadding);
         FillDirection = Enum.FillDirection.Horizontal;
+        HorizontalAlignment = Enum.HorizontalAlignment.Center; -- Changed from Left to Center
         SortOrder = Enum.SortOrder.LayoutOrder;
         Parent = TabArea;
     });
