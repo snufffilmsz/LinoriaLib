@@ -3020,6 +3020,45 @@ function Library:CreateWindow(...)
         Parent = MainSectionOuter;
     });
 
+    local ResizeHandle = Library:Create('TextButton', {
+        Size = UDim2.new(0, 10, 0, 10),
+        Position = UDim2.new(1, -10, 1, -10),
+        BackgroundColor3 = Library.OutlineColor,
+        BorderSizePixel = 0,
+        Text = "",
+        Parent = Outer,
+        ZIndex = 10
+    })
+
+    local dragging = false
+    local startPos
+    local startSize
+    
+    ResizeHandle.MouseButton1Down:Connect(function()
+        dragging = true
+        startPos = game:GetService('UserInputService'):GetMouseLocation()
+        startSize = Outer.Size
+    end)
+
+    game:GetService('UserInputService').InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            local delta = game:GetService('UserInputService'):GetMouseLocation() - startPos
+            local newSize = UDim2.new(
+                startSize.X.Scale, 
+                math.clamp(startSize.X.Offset + delta.X, 400, 2000),
+                startSize.Y.Scale,
+                math.clamp(startSize.Y.Offset + delta.Y, 400, 1000)
+            )
+            Outer.Size = newSize
+        end
+    end)
+
+    game:GetService('UserInputService').InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+
     Library:AddToRegistry(MainSectionInner, {
         BackgroundColor3 = 'BackgroundColor';
     });
