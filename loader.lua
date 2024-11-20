@@ -40,7 +40,7 @@ function Library:CreateLoader()
     local Title = Library:Create('TextLabel', {
         Size = UDim2.new(1, 0, 0, 30),
         BackgroundTransparency = 1,
-        Text = "Loader",
+        Text = "periphean.wtf",
         TextColor3 = Library.FontColor,
         TextSize = 16,
         Font = Library.Font,
@@ -79,21 +79,18 @@ function Library:CreateLoader()
         Parent = Container
     })
 
-    -- Button Functionality
     LoadButton.MouseButton1Click:Connect(function()
         LoadButton.Text = "Loading..."
-        task.wait(0.5) -- Simulate loading
-        
-        -- Fade out loader
+        task.wait(0.5)
+
         local Tween = TweenService:Create(Main, TweenInfo.new(0.5), {
             Position = UDim2.new(0.5, -150, 1.5, -75)
         })
         Tween:Play()
         Tween.Completed:Wait()
-        
-        -- Initialize your main UI here
+
         ScreenGui:Destroy()
-        Library:Initialize() -- Your main UI initialization function
+        Library:Initialize()
     end)
 
     ExitButton.MouseButton1Click:Connect(function()
@@ -105,7 +102,6 @@ function Library:CreateLoader()
         ScreenGui:Destroy()
     end)
 
-    -- Make draggable
     local Dragging = false
     local DragStart = nil
     local StartPos = nil
