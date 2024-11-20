@@ -3162,28 +3162,14 @@ function Library:CreateWindow(...)
 
         function Tab:ShowTab()
             for _, Tab in next, Window.Tabs do
-                if Tab.TabFrame.Visible then
-                    TweenService:Create(Tab.TabFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                        Position = UDim2.new(1, 0, 0, 0),
-                        Transparency = 1
-                    }):Play()
-                    wait(0.3)
-                    Tab:HideTab()
-                end
-            end
+                Tab:HideTab();
+            end;
 
-            TabFrame.Position = UDim2.new(-1, 0, 0, 0)
-            TabFrame.Visible = true
-            
-            TweenService:Create(TabFrame, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-                Position = UDim2.new(0, 0, 0, 0),
-                Transparency = 0
-            }):Play()
-        
-            Blocker.BackgroundTransparency = 0
-            TabButton.BackgroundColor3 = Library.MainColor
-            Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'MainColor'
-        end
+            Blocker.BackgroundTransparency = 0;
+            TabButton.BackgroundColor3 = Library.MainColor;
+            Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'MainColor';
+            TabFrame.Visible = true;
+        end;
 
         function Tab:HideTab()
             Blocker.BackgroundTransparency = 1;
@@ -3240,6 +3226,22 @@ function Library:CreateWindow(...)
                 BackgroundColor3 = 'AccentColor';
             });
 
+            local Glow = Library:Create('ImageLabel', {
+                Name = 'Glow',
+                BackgroundTransparency = 1,
+                Position = UDim2.new(0, -15, 0, -15),
+                Size = UDim2.new(1, 30, 1, 30),
+                ZIndex = 0,
+                Image = "rbxassetid://5028857084",
+                ImageColor3 = Library.AccentColor,
+                ImageTransparency = 0.5,
+                Parent = Outer
+            })
+
+            Library:AddToRegistry(Glow, {
+                ImageColor3 = 'AccentColor'
+            })
+            
             local GroupboxLabel = Library:CreateLabel({
                 Size = UDim2.new(1, 0, 0, 18);
                 Position = UDim2.new(0, 4, 0, 2);
