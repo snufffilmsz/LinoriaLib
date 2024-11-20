@@ -1,139 +1,128 @@
-local InputService = game:GetService('UserInputService')
-local CoreGui = game:GetService('CoreGui')
-local TweenService = game:GetService('TweenService')
-
-local ScreenGui = Instance.new('ScreenGui')
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
-ScreenGui.Parent = CoreGui
-
 local Library = {
+    Registry = {},
+    RegistryMap = {},
+    HudRegistry = {},
+
+    FontColor = Color3.fromRGB(255, 255, 255),
     MainColor = Color3.fromRGB(28, 28, 28),
     BackgroundColor = Color3.fromRGB(20, 20, 20),
     AccentColor = Color3.fromRGB(0, 85, 255),
     OutlineColor = Color3.fromRGB(50, 50, 50),
-    FontColor = Color3.new(1, 1, 1),
     Black = Color3.new(0, 0, 0),
-    Font = Enum.Font.Code
+    Font = Enum.Font.Code,
 }
 
-local Loader = {}
-
-function Library:Create(Class, Properties)
-    local Object = Instance.new(Class)
-    
-    for Property, Value in next, Properties do
-        Object[Property] = Value
-    end
-    
-    return Object
-end
-
 function Library:CreateLoader()
-    local Main = Library:Create('Frame', {
-        Size = UDim2.new(0, 300, 0, 150),
-        Position = UDim2.new(0.5, -150, 0.5, -75),
-        BackgroundColor3 = Library.MainColor,
-        BorderColor3 = Library.OutlineColor,
+    local Outer = Library:Create('Frame', {
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        BackgroundColor3 = Color3.new(0, 0, 0),
+        BorderSizePixel = 0,
+        Position = UDim2.fromScale(0.5, 0.5),
+        Size = UDim2.fromOffset(300, 140),
+        Visible = true,
+        ZIndex = 1,
         Parent = ScreenGui
     })
 
-    local Title = Library:Create('TextLabel', {
-        Size = UDim2.new(1, 0, 0, 30),
-        BackgroundTransparency = 1,
-        Text = "Loader",
-        TextColor3 = Library.FontColor,
-        TextSize = 16,
-        Font = Library.Font,
-        Parent = Main
+    Library:MakeDraggable(Outer, 25)
+
+    local Inner = Library:Create('Frame', {
+        BackgroundColor3 = Library.MainColor,
+        BorderColor3 = Library.AccentColor,
+        BorderMode = Enum.BorderMode.Inset,
+        Position = UDim2.new(0, 1, 0, 1),
+        Size = UDim2.new(1, -2, 1, -2),
+        ZIndex = 1,
+        Parent = Outer
     })
 
-    local Container = Library:Create('Frame', {
-        Position = UDim2.new(0, 10, 0, 40),
-        Size = UDim2.new(1, -20, 1, -50),
+    Library:AddToRegistry(Inner, {
+        BackgroundColor3 = 'MainColor',
+        BorderColor3 = 'AccentColor'
+    })
+
+    local LoaderLabel = Library:CreateLabel({
+        Position = UDim2.new(0, 0, 0, 0),
+        Size = UDim2.new(1, 0, 0, 25),
+        Text = 'Loader',
+        TextXAlignment = Enum.TextXAlignment.Center,
+        ZIndex = 1,
+        Parent = Inner
+    })
+
+    local MainSection = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor,
         BorderColor3 = Library.OutlineColor,
-        Parent = Main
+        Position = UDim2.new(0, 8, 0, 25),
+        Size = UDim2.new(1, -16, 1, -33),
+        ZIndex = 1,
+        Parent = Inner
+    })
+
+    Library:AddToRegistry(MainSection, {
+        BackgroundColor3 = 'BackgroundColor',
+        BorderColor3 = 'OutlineColor'
     })
 
     local LoadButton = Library:Create('TextButton', {
+        BackgroundColor3 = Library.MainColor,
+        BorderColor3 = Library.OutlineColor,
         Position = UDim2.new(0.1, 0, 0.5, -15),
         Size = UDim2.new(0.35, 0, 0, 30),
-        BackgroundColor3 = Library.AccentColor,
-        BorderColor3 = Library.Black,
+        AutoButtonColor = false,
         Text = "Load",
+        Font = Library.Font,
         TextColor3 = Library.FontColor,
         TextSize = 14,
-        Font = Library.Font,
-        Parent = Container
+        ZIndex = 2,
+        Parent = MainSection
     })
 
     local ExitButton = Library:Create('TextButton', {
+        BackgroundColor3 = Library.MainColor,
+        BorderColor3 = Library.OutlineColor,
         Position = UDim2.new(0.55, 0, 0.5, -15),
         Size = UDim2.new(0.35, 0, 0, 30),
-        BackgroundColor3 = Library.AccentColor,
-        BorderColor3 = Library.Black,
+        AutoButtonColor = false,
         Text = "Exit",
+        Font = Library.Font,
         TextColor3 = Library.FontColor,
         TextSize = 14,
-        Font = Library.Font,
-        Parent = Container
+        ZIndex = 2,
+        Parent = MainSection
     })
 
-    -- Button Functionality
+    Library:AddToRegistry(LoadButton, {
+        BackgroundColor3 = 'MainColor',
+        BorderColor3 = 'OutlineColor',
+        TextColor3 = 'FontColor'
+    })
+
+    Library:AddToRegistry(ExitButton, {
+        BackgroundColor3 = 'MainColor',
+        BorderColor3 = 'OutlineColor',
+        TextColor3 = 'FontColor'
+    })
+
+    Library:OnHighlight(LoadButton, LoadButton,
+        { BorderColor3 = 'AccentColor' },
+        { BorderColor3 = 'OutlineColor' }
+    )
+
+    Library:OnHighlight(ExitButton, ExitButton,
+        { BorderColor3 = 'AccentColor' },
+        { BorderColor3 = 'OutlineColor' }
+    )
+
     LoadButton.MouseButton1Click:Connect(function()
         LoadButton.Text = "Loading..."
-        task.wait(0.5) -- Simulate loading
-        
-        -- Fade out loader
-        local Tween = TweenService:Create(Main, TweenInfo.new(0.5), {
-            Position = UDim2.new(0.5, -150, 1.5, -75)
-        })
-        Tween:Play()
-        Tween.Completed:Wait()
-        
-        -- Initialize your main UI here
-        ScreenGui:Destroy()
-        Library:Initialize() -- Your main UI initialization function
+        task.wait(0.5)
+        Outer:Destroy()
+        Library:Initialize()
     end)
 
     ExitButton.MouseButton1Click:Connect(function()
-        local Tween = TweenService:Create(Main, TweenInfo.new(0.5), {
-            Position = UDim2.new(0.5, -150, 1.5, -75)
-        })
-        Tween:Play()
-        Tween.Completed:Wait()
-        ScreenGui:Destroy()
-    end)
-
-    -- Make draggable
-    local Dragging = false
-    local DragStart = nil
-    local StartPos = nil
-
-    Title.InputBegan:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-            Dragging = true
-            DragStart = Input.Position
-            StartPos = Main.Position
-        end
-    end)
-
-    InputService.InputChanged:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseMovement and Dragging then
-            local Delta = Input.Position - DragStart
-            Main.Position = UDim2.new(
-                StartPos.X.Scale,
-                StartPos.X.Offset + Delta.X,
-                StartPos.Y.Scale,
-                StartPos.Y.Offset + Delta.Y
-            )
-        end
-    end)
-
-    InputService.InputEnded:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-            Dragging = false
-        end
+        Outer:Destroy()
     end)
 end
 
