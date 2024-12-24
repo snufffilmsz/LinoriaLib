@@ -208,7 +208,7 @@ function Library:AddToolTip(InfoStr, HoverInstance)
         TextSize = 14;
         Text = InfoStr,
         TextColor3 = Library.FontColor,
-        TextXAlignment = Enum.TextXAlignment.Left;
+        TextXAlignment = Enum.TextXAlignment.Center;
         ZIndex = Tooltip.ZIndex + 1,
 
         Parent = Tooltip;
@@ -595,7 +595,7 @@ do
             TextColor3 = Library.FontColor;
             TextSize = 14;
             TextStrokeTransparency = 0;
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             ZIndex = 20,
             Parent = HueBoxInner;
         });
@@ -657,7 +657,7 @@ do
         local DisplayLabel = Library:CreateLabel({
             Size = UDim2.new(1, 0, 0, 14);
             Position = UDim2.fromOffset(5, 5);
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             TextSize = 14;
             Text = ColorPicker.Title,--Info.Default;
             TextWrapped = false;
@@ -695,7 +695,7 @@ do
 
             Library:Create('UIPadding', {
                 Name = 'Padding',
-                PaddingLeft = UDim.new(0, 4),
+                PaddingCenter = UDim.new(0, 4),
                 Parent = ContextMenu.Inner,
             });
 
@@ -751,7 +751,7 @@ do
                     Text = Str;
                     ZIndex = 16;
                     Parent = self.Inner;
-                    TextXAlignment = Enum.TextXAlignment.Left,
+                    TextXAlignment = Enum.TextXAlignment.Center,
                 });
 
                 Library:OnHighlight(Button, Button, 
@@ -1088,7 +1088,7 @@ do
         });
 
         local ContainerLabel = Library:CreateLabel({
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             Size = UDim2.new(1, 0, 0, 18);
             TextSize = 13;
             Visible = false;
@@ -1361,7 +1361,7 @@ do
             TextSize = 14;
             Text = Text;
             TextWrapped = DoesWrap or false,
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             ZIndex = 5;
             Parent = Container;
         });
@@ -1647,7 +1647,7 @@ do
             Size = UDim2.new(1, 0, 0, 15);
             TextSize = 14;
             Text = Info.Text;
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             ZIndex = 5;
             Parent = Container;
         });
@@ -1719,7 +1719,7 @@ do
             TextColor3 = Library.FontColor;
             TextSize = 14;
             TextStrokeTransparency = 0;
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
 
             ZIndex = 7;
             Parent = Container;
@@ -1860,7 +1860,7 @@ do
             Position = UDim2.new(1, 6, 0, 0);
             TextSize = 14;
             Text = Info.Text;
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             ZIndex = 6;
             Parent = ToggleInner;
         });
@@ -1977,7 +1977,7 @@ do
                 Size = UDim2.new(1, 0, 0, 10);
                 TextSize = 14;
                 Text = Info.Text;
-                TextXAlignment = Enum.TextXAlignment.Left;
+                TextXAlignment = Enum.TextXAlignment.Center;
                 TextYAlignment = Enum.TextYAlignment.Bottom;
                 ZIndex = 5;
                 Parent = Container;
@@ -2183,7 +2183,7 @@ do
                 Size = UDim2.new(1, 0, 0, 10);
                 TextSize = 14;
                 Text = Info.Text;
-                TextXAlignment = Enum.TextXAlignment.Left;
+                TextXAlignment = Enum.TextXAlignment.Center;
                 TextYAlignment = Enum.TextYAlignment.Bottom;
                 ZIndex = 5;
                 Parent = Container;
@@ -2248,7 +2248,7 @@ do
             Size = UDim2.new(1, -5, 1, 0);
             TextSize = 14;
             Text = '--';
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             TextWrapped = true;
             ZIndex = 7;
             Parent = DropdownInner;
@@ -2398,7 +2398,7 @@ do
                     Position = UDim2.new(0, 6, 0, 0);
                     TextSize = 14;
                     Text = Value;
-                    TextXAlignment = Enum.TextXAlignment.Left;
+                    TextXAlignment = Enum.TextXAlignment.Center;
                     ZIndex = 25;
                     Parent = Button;
                 });
@@ -2748,7 +2748,7 @@ do
         Position = UDim2.new(0, 5, 0, 0);
         Size = UDim2.new(1, -4, 1, 0);
         TextSize = 14;
-        TextXAlignment = Enum.TextXAlignment.Left;
+        TextXAlignment = Enum.TextXAlignment.Center;
         ZIndex = 203;
         Parent = InnerFrame;
     });
@@ -2798,7 +2798,7 @@ do
     local KeybindLabel = Library:CreateLabel({
         Size = UDim2.new(1, 0, 0, 20);
         Position = UDim2.fromOffset(5, 2),
-        TextXAlignment = Enum.TextXAlignment.Left,
+        TextXAlignment = Enum.TextXAlignment.Center,
 
         Text = 'Keybinds';
         ZIndex = 104;
@@ -2820,7 +2820,7 @@ do
     });
 
     Library:Create('UIPadding', {
-        PaddingLeft = UDim.new(0, 5),
+        PaddingCenter = UDim.new(0, 5),
         Parent = KeybindContainer,
     })
 
@@ -2900,13 +2900,13 @@ function Library:Notify(Text, Time)
         Position = UDim2.new(0, 4, 0, 0);
         Size = UDim2.new(1, -4, 1, 0);
         Text = Text;
-        TextXAlignment = Enum.TextXAlignment.Left;
+        TextXAlignment = Enum.TextXAlignment.Center;
         TextSize = 14;
         ZIndex = 103;
         Parent = InnerFrame;
     });
 
-    local LeftColor = Library:Create('Frame', {
+    local CenterColor = Library:Create('Frame', {
         BackgroundColor3 = Library.AccentColor;
         BorderSizePixel = 0;
         Position = UDim2.new(0, -1, 0, -1);
@@ -2915,7 +2915,7 @@ function Library:Notify(Text, Time)
         Parent = NotifyOuter;
     });
 
-    Library:AddToRegistry(LeftColor, {
+    Library:AddToRegistry(CenterColor, {
         BackgroundColor3 = 'AccentColor';
     }, true);
 
@@ -3035,7 +3035,7 @@ function Library:CreateWindow(...)
     local TabListLayout = Library:Create('UIListLayout', {
         Padding = UDim.new(0, Config.TabPadding);
         FillDirection = Enum.FillDirection.Horizontal;
-        HorizontalAlignment = Enum.HorizontalAlignment.Center; -- Changed from Left to Center
+        HorizontalAlignment = Enum.HorizontalAlignment.Center; -- Changed from Center to Center
         SortOrder = Enum.SortOrder.LayoutOrder;
         Parent = TabArea;
     });
@@ -3112,7 +3112,7 @@ function Library:CreateWindow(...)
             Parent = TabContainer;
         });
 
-        local LeftSide = Library:Create('ScrollingFrame', {
+        local CenterSide = Library:Create('ScrollingFrame', {
             BackgroundTransparency = 1;
             BorderSizePixel = 0;
             Position = UDim2.new(0, 8 - 1, 0, 8 - 1);
@@ -3143,7 +3143,7 @@ function Library:CreateWindow(...)
             FillDirection = Enum.FillDirection.Vertical;
             SortOrder = Enum.SortOrder.LayoutOrder;
             HorizontalAlignment = Enum.HorizontalAlignment.Center;
-            Parent = LeftSide;
+            Parent = CenterSide;
         });
 
         Library:Create('UIListLayout', {
@@ -3154,7 +3154,7 @@ function Library:CreateWindow(...)
             Parent = RightSide;
         });
 
-        for _, Side in next, { LeftSide, RightSide } do
+        for _, Side in next, { CenterSide, RightSide } do
             Side:WaitForChild('UIListLayout'):GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
                 Side.CanvasSize = UDim2.fromOffset(0, Side.UIListLayout.AbsoluteContentSize.Y);
             end);
@@ -3192,7 +3192,7 @@ function Library:CreateWindow(...)
                 BorderMode = Enum.BorderMode.Inset;
                 Size = UDim2.new(1, 0, 0, 507 + 2);
                 ZIndex = 2;
-                Parent = Info.Side == 1 and LeftSide or RightSide;
+                Parent = Info.Side == 1 and CenterSide or RightSide;
             });
 
             Library:AddToRegistry(BoxOuter, {
@@ -3231,7 +3231,7 @@ function Library:CreateWindow(...)
                 Position = UDim2.new(0, 4, 0, 2);
                 TextSize = 14;
                 Text = Info.Name;
-                TextXAlignment = Enum.TextXAlignment.Left;
+                TextXAlignment = Enum.TextXAlignment.Center;
                 ZIndex = 5;
                 Parent = BoxInner;
             });
@@ -3273,7 +3273,7 @@ function Library:CreateWindow(...)
             return Groupbox;
         end;
 
-        function Tab:AddLeftGroupbox(Name)
+        function Tab:AddCenterGroupbox(Name)
             return Tab:AddGroupbox({ Side = 1; Name = Name; });
         end;
 
@@ -3292,7 +3292,7 @@ function Library:CreateWindow(...)
                 BorderMode = Enum.BorderMode.Inset;
                 Size = UDim2.new(1, 0, 0, 0);
                 ZIndex = 2;
-                Parent = Info.Side == 1 and LeftSide or RightSide;
+                Parent = Info.Side == 1 and CenterSide or RightSide;
             });
 
             Library:AddToRegistry(BoxOuter, {
@@ -3336,7 +3336,7 @@ function Library:CreateWindow(...)
 
             Library:Create('UIListLayout', {
                 FillDirection = Enum.FillDirection.Horizontal;
-                HorizontalAlignment = Enum.HorizontalAlignment.Left;
+                HorizontalAlignment = Enum.HorizontalAlignment.Center;
                 SortOrder = Enum.SortOrder.LayoutOrder;
                 Parent = TabboxButtons;
             });
@@ -3472,7 +3472,7 @@ function Library:CreateWindow(...)
             return Tabbox;
         end;
 
-        function Tab:AddLeftTabbox(Name)
+        function Tab:AddCenterTabbox(Name)
             return Tab:AddTabbox({ Name = Name, Side = 1; });
         end;
 
