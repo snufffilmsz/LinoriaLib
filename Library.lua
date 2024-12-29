@@ -1967,7 +1967,7 @@ do
             MaxSize = 232;
             Type = 'Slider';
             Callback = Info.Callback or function(Value) end;
-            DisplayFormat = Info.DisplayFormat or '%s/%s'; -- Add this line
+            DisplayFormat = Info.DisplayFormat or '%s/%s';
         };
     
         local Groupbox = self;
@@ -2069,7 +2069,7 @@ do
             elseif Info.HideMax then
                 DisplayLabel.Text = string.format('%s', Slider.Value .. Suffix)
             else
-                DisplayLabel.Text = string.format(Slider.DisplayFormat, Slider.Value .. Suffix, Slider.Max .. Suffix); -- Modify this line
+                DisplayLabel.Text = string.format(Slider.DisplayFormat, Slider.Value .. Suffix, Slider.Max .. Suffix);
             end
     
             local X = math.ceil(Library:MapValue(Slider.Value, Slider.Min, Slider.Max, 0, Slider.MaxSize));
@@ -2144,6 +2144,14 @@ do
         Groupbox:Resize();
     
         Options[Idx] = Slider;
+    
+        function Slider:AddSliderNextTo(Idx, Info)
+            local NewSlider = Groupbox:AddSlider(Idx, Info)
+            NewSlider.SliderOuter.Position = UDim2.new(0.5, 2, 0, 0)
+            NewSlider.SliderOuter.Size = UDim2.new(0.5, -2, 0, 13)
+            Slider.SliderOuter.Size = UDim2.new(0.5, -2, 0, 13)
+            return NewSlider
+        end
     
         return Slider;
     end;
