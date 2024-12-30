@@ -2955,6 +2955,18 @@ function Library:CreateWindow(...)
         Config.Position = UDim2.fromScale(0.5, 0.5)
     end
 
+    local ScriptVersion = Config.ScriptVersion or "Regular"
+    local versionText = ""
+    local versionColor = ""
+
+    if ScriptVersion == "Regular" then
+        versionText = "[free]"
+        versionColor = "rgb(0, 255, 0)" -- Green color
+    elseif ScriptVersion == "Developer" then
+        versionText = "[developer]"
+        versionColor = "rgb(255, 0, 0)" -- Red color
+    end
+
     local Window = {
         Tabs = {};
     };
@@ -2990,11 +3002,14 @@ function Library:CreateWindow(...)
     local WindowLabel = Library:CreateLabel({
         Position = UDim2.new(0, 0, 0, 0);
         Size = UDim2.new(1, 0, 0, 25);
-        Text = Config.Title or '';
+        Text = Config.Title .. ' <font color="' .. versionColor .. '">' .. versionText .. '</font>';
         TextXAlignment = Enum.TextXAlignment.Center;
         ZIndex = 1;
         Parent = Inner;
-    });    
+    });
+
+    -- Enable RichText for the title
+    WindowLabel.RichText = true
 
     local MainSectionOuter = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor;
@@ -3056,7 +3071,7 @@ function Library:CreateWindow(...)
     });
 
     function Window:SetWindowTitle(Title)
-        WindowLabel.Text = Title;
+        WindowLabel.Text = Title .. ' <font color="' .. versionColor .. '">' .. versionText .. '</font>';
     end;
 
     function Window:AddTab(Name)
