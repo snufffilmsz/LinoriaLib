@@ -1361,7 +1361,7 @@ do
             TextSize = 14;
             Text = Text;
             TextWrapped = DoesWrap or false,
-            TextXAlignment = Enum.TextXAlignment.Left;
+            TextXAlignment = Enum.TextXAlignment.Center;
             ZIndex = 5;
             Parent = Container;
         });
@@ -3035,7 +3035,7 @@ function Library:CreateWindow(...)
     local TabListLayout = Library:Create('UIListLayout', {
         Padding = UDim.new(0, Config.TabPadding);
         FillDirection = Enum.FillDirection.Horizontal;
-        HorizontalAlignment = Enum.HorizontalAlignment.Center; -- Changed from Left to Center
+        HorizontalAlignment = Enum.HorizontalAlignment.Left; -- Changed from Left to Center
         SortOrder = Enum.SortOrder.LayoutOrder;
         Parent = TabArea;
     });
